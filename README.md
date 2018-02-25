@@ -1,2 +1,2 @@
-# GregMetTic
-A Crossmod for Metallurgy, GregTech and TConstuct
+# SuperTic
+A Mod to make TConstruct Tools more Interesting

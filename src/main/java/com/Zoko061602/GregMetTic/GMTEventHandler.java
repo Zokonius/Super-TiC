@@ -13,7 +13,8 @@ public class GMTEventHandler {
 
 	@SubscribeEvent
 	public void Tooltip(ItemTooltipEvent event){
-		 TooltipEventHandler.getInstance().addTooltips(event);	
+		 TooltipEventHandler.getInstance().addPotionTooltips(event);	
+		 TooltipEventHandler.getInstance().addGregTooltips(event);
 	}
 	
 }

@@ -1,9 +1,10 @@
-package com.Zoko061602.GregMetTic;
+package com.Zoko061602.SuperTic;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import tconstruct.library.TConstructRegistry;
@@ -27,10 +28,10 @@ public class TooltipEventHandler {
 	      if(item instanceof IToolPart){
 		    id = Config.eff.get(((IToolPart)item).getMaterialID(event.itemStack));		       			 
 			 if(id>0)
-			     event.toolTip.add("§3"+StatCollector.translateToLocal(new PotionEffect(id,1).getEffectName())+getLatin(Config.amp.get(((IToolPart) item).getMaterialID(event.itemStack))));
+			     event.toolTip.add(EnumChatFormatting.AQUA+StatCollector.translateToLocal(new PotionEffect(id,1).getEffectName())+getLatin(Config.amp.get(((IToolPart) item).getMaterialID(event.itemStack))));
 			 if(id<0){
 				 id*=-1; 
-				 event.toolTip.add("§b"+StatCollector.translateToLocal(new PotionEffect(id,1).getEffectName()));
+				 event.toolTip.add(EnumChatFormatting.DARK_AQUA+StatCollector.translateToLocal(new PotionEffect(id,1).getEffectName()));
 			 }
 	      }
 			 else if(item instanceof ToolCore){
@@ -60,14 +61,14 @@ public class TooltipEventHandler {
 				    	  if(handle.getPotionID()==head.getPotionID()&&c<handle.getAmplifier())c=handle.getAmplifier();
 				    	  if(binding.getPotionID()==head.getPotionID()&&c<binding.getAmplifier())c=binding.getAmplifier();
 				    	  if(extra.getPotionID()==head.getPotionID()&&c<extra.getAmplifier())c=extra.getAmplifier();
-				    	   event.toolTip.add(1,"§b"+StatCollector.translateToLocal(new PotionEffect(head.getPotionID()*(-1),1,c).getEffectName())+getLatin(c));
+				    	   event.toolTip.add(1,EnumChatFormatting.AQUA+StatCollector.translateToLocal(new PotionEffect(head.getPotionID()*(-1),1,c).getEffectName())+getLatin(c));
 					      }
 				     else{
 				    	 int c=head.getAmplifier();
 				    	  if(handle.getPotionID()==head.getPotionID()&&c<handle.getAmplifier())c=handle.getAmplifier();
 				    	  if(binding.getPotionID()==head.getPotionID()&&c<binding.getAmplifier())c=binding.getAmplifier();
 				    	  if(extra.getPotionID()==head.getPotionID()&&c<extra.getAmplifier())c=extra.getAmplifier();
-				    	   event.toolTip.add(1,"§3"+StatCollector.translateToLocal(new PotionEffect(head.getPotionID(),1,c).getEffectName())+getLatin(c));
+				    	   event.toolTip.add(1,EnumChatFormatting.DARK_AQUA+StatCollector.translateToLocal(new PotionEffect(head.getPotionID(),1,c).getEffectName())+getLatin(c));
 					      }
 				     }
 				  //Handle
@@ -76,13 +77,13 @@ public class TooltipEventHandler {
 					  int c=handle.getAmplifier();
 					   if(binding.getPotionID()==handle.getPotionID()&&c<binding.getAmplifier())c=binding.getAmplifier();
 					      if(extra.getPotionID()==handle.getPotionID()&&c<extra.getAmplifier())c=extra.getAmplifier();
-					    	   event.toolTip.add(1,"§b"+StatCollector.translateToLocal(new PotionEffect(handle.getPotionID()*(-1),1,c).getEffectName())+getLatin(c));
+					    	   event.toolTip.add(1,EnumChatFormatting.AQUA+StatCollector.translateToLocal(new PotionEffect(handle.getPotionID()*(-1),1,c).getEffectName())+getLatin(c));
 						      }
 					     else{
 					    	 int c=handle.getAmplifier();
 					    	  if(binding.getPotionID()==handle.getPotionID()&&c<binding.getAmplifier())c=binding.getAmplifier();
 					    	  if(extra.getPotionID()==handle.getPotionID()&&c<extra.getAmplifier())c=extra.getAmplifier();
-					    	   event.toolTip.add(1,"§3"+StatCollector.translateToLocal(new PotionEffect(handle.getPotionID(),1,c).getEffectName())+getLatin(c));
+					    	   event.toolTip.add(1,EnumChatFormatting.DARK_AQUA+StatCollector.translateToLocal(new PotionEffect(handle.getPotionID(),1,c).getEffectName())+getLatin(c));
 						      }
 					     }
 				     //Binding
@@ -91,22 +92,22 @@ public class TooltipEventHandler {
 					      if(binding.getPotionID()<0){
 					    	 int c=binding.getAmplifier();
 					    	  if(extra.getPotionID()==binding.getPotionID()&&c<extra.getAmplifier())c=extra.getAmplifier();
-					    	   event.toolTip.add(1,"§b"+StatCollector.translateToLocal(new PotionEffect(binding.getPotionID()*(-1),1,c).getEffectName())+getLatin(c));
+					    	   event.toolTip.add(1,EnumChatFormatting.AQUA+StatCollector.translateToLocal(new PotionEffect(binding.getPotionID()*(-1),1,c).getEffectName())+getLatin(c));
 						      }
 					     else{
 					    	 int c=binding.getAmplifier();
 					    	  if(extra.getPotionID()==binding.getPotionID()&&c<extra.getAmplifier())c=extra.getAmplifier();
-					    	   event.toolTip.add(1,"§3"+StatCollector.translateToLocal(new PotionEffect(binding.getPotionID(),1,c).getEffectName())+getLatin(c));
+					    	   event.toolTip.add(1,EnumChatFormatting.DARK_AQUA+StatCollector.translateToLocal(new PotionEffect(binding.getPotionID(),1,c).getEffectName())+getLatin(c));
 						      }
 					     }
 				     //Extra
 				     if(core.getPartAmount()==4)
 					     if (!(extra.getPotionID()==0)&&!(extra.getPotionID()==head.getPotionID())&&!(extra.getPotionID()==handle.getPotionID())&&!(extra.getPotionID()==binding.getPotionID())){
 					      if(extra.getPotionID()<0){
-					    	   event.toolTip.add(1,"§b"+StatCollector.translateToLocal(new PotionEffect(extra.getPotionID()*(-1),1,extra.getAmplifier()).getEffectName())+getLatin(extra.getAmplifier()));
+					    	   event.toolTip.add(1,EnumChatFormatting.AQUA+StatCollector.translateToLocal(new PotionEffect(extra.getPotionID()*(-1),1,extra.getAmplifier()).getEffectName())+getLatin(extra.getAmplifier()));
 						      }
 					     else{
-					    	   event.toolTip.add(1,"§3"+StatCollector.translateToLocal(new PotionEffect(extra.getPotionID(),1,extra.getAmplifier()).getEffectName())+getLatin(extra.getAmplifier()));
+					    	   event.toolTip.add(1,EnumChatFormatting.DARK_AQUA+StatCollector.translateToLocal(new PotionEffect(extra.getPotionID(),1,extra.getAmplifier()).getEffectName())+getLatin(extra.getAmplifier()));
 						      }
 					     }
 

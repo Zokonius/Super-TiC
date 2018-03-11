@@ -1,4 +1,4 @@
-package com.Zoko061602.GregMetTic;
+package com.Zoko061602.SuperTic;
 
 import java.io.File;
 import java.util.HashMap;
@@ -11,7 +11,8 @@ public class Config {
       public static	HashMap<Integer, Integer> eff = new HashMap<Integer,Integer>();
       public static	HashMap<Integer, Integer> dur = new HashMap<Integer,Integer>();
       public static	HashMap<Integer, Integer> amp = new HashMap<Integer,Integer>();
-      
+      public static	HashMap<Integer, Integer> prob = new HashMap<Integer,Integer>();
+
       static Configuration conf;
             
    	  public static void Configurate(File file) {		
@@ -22,6 +23,7 @@ public class Config {
           eff.put(i, conf.getInt("Effect", TConstructRegistry.toolMaterials.get(i).materialName, 0, -255, 255,"Effect id (if negative gets applied to player)"));
           dur.put(i, conf.getInt("Duration", TConstructRegistry.toolMaterials.get(i).materialName, 200, 1, Integer.MAX_VALUE,""));
           amp.put(i, conf.getInt("Amplifier", TConstructRegistry.toolMaterials.get(i).materialName, 1, 1, Integer.MAX_VALUE,"")-1);
+          prob.put(i,conf.getInt("Probability", TConstructRegistry.toolMaterials.get(i).materialName, 1, 1, Integer.MAX_VALUE,"Chance effect gets applied 1 in X"));
 	     }
      	conf.save();
 	  }

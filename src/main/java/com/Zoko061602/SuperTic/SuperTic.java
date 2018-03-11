@@ -14,7 +14,7 @@ public class SuperTic {
     
 	public static final String ModId = "SuperTic";
 	public static final String ModName = "SuperTic";
-	public static final String Version = "sin(pi)";
+	public static final String Version = "1.1.0";
 	
 	@Instance
 	public static SuperTic Instace = new SuperTic();

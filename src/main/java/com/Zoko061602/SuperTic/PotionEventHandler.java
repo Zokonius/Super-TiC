@@ -1,4 +1,6 @@
-package com.Zoko061602.GregMetTic;
+package com.Zoko061602.SuperTic;
+
+import java.util.Random;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +18,8 @@ public class PotionEventHandler {
 	  public static PotionEventHandler getInstance(){
 	    return INSTANCE;
 	  }
+	  
+
 	  
 	  
 	  public void applyEffects(AttackEntityEvent event){
@@ -65,35 +69,41 @@ public class PotionEventHandler {
 	      
 	        if (Config.eff.containsKey(head)){
 	         if(Config.eff.get(head)>0)
-	        	target.addPotionEffect(new PotionEffect(Config.eff.get(head), Config.dur.get(head),Config.amp.get(head)));
+	        	addEffect(target, head);
 	         else if(Config.eff.get(head)<0)
-	        	 player.addPotionEffect(new PotionEffect(Config.eff.get(head)*(-1),Config.dur.get(head),Config.amp.get(head)));
+		        	addEffect(player, head);
 	        	
 	        }
 	        if (Config.eff.containsKey(handle)){
 		         if(Config.eff.get(handle)>0)
-		        	target.addPotionEffect(new PotionEffect(Config.eff.get(handle), Config.dur.get(handle),Config.amp.get(handle)));
+			        	addEffect(target, handle);
 		         else if(Config.eff.get(handle)<0)
-		        	 player.addPotionEffect(new PotionEffect(Config.eff.get(handle)*(-1),Config.dur.get(handle),Config.amp.get(handle)));
+			        	addEffect(player, handle);
 		        	
 		        }
 	        if (Config.eff.containsKey(accessory)){
 		         if(Config.eff.get(accessory)>0)
-		        	target.addPotionEffect(new PotionEffect(Config.eff.get(accessory), Config.dur.get(accessory),Config.amp.get(accessory)));
+			        	addEffect(target, accessory);
 		         else if(Config.eff.get(accessory)<0)
-		        	 player.addPotionEffect(new PotionEffect(Config.eff.get(accessory)*(-1),Config.dur.get(accessory),Config.amp.get(accessory)));
+		        	 addEffect(player, accessory);
 		        	
 		        }
 	        if (Config.eff.containsKey(extra)){
 		         if(Config.eff.get(extra)>0)
-		        	target.addPotionEffect(new PotionEffect(Config.eff.get(extra), Config.dur.get(extra),Config.amp.get(extra)));
+		        	 addEffect(target, extra);
 		         else if(Config.eff.get(extra)<0)
-		        	 player.addPotionEffect(new PotionEffect(Config.eff.get(extra)*(-1),Config.dur.get(extra),Config.amp.get(extra)));
+		        	 addEffect(player, extra);
 		        	
 		        }
 	            
 	      }
 	    }
+	  }
+	  
+	  private void addEffect(EntityLivingBase e,int id){
+		  int r= new Random().nextInt(Config.prob.get(id));
+		   if(r==1)
+	        	 e.addPotionEffect(new PotionEffect(Config.eff.get(id)*(-1),Config.dur.get(id),Config.amp.get(id)));
 	  }
 	  
 }

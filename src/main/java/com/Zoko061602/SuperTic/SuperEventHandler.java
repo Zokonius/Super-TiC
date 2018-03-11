@@ -1,10 +1,10 @@
-package com.Zoko061602.GregMetTic;
+package com.Zoko061602.SuperTic;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
-public class GMTEventHandler {
+public class SuperEventHandler {
 	
 	@SubscribeEvent
 	public void PlayerAttack(AttackEntityEvent event){
@@ -13,8 +13,7 @@ public class GMTEventHandler {
 
 	@SubscribeEvent
 	public void Tooltip(ItemTooltipEvent event){
-		 TooltipEventHandler.getInstance().addPotionTooltips(event);	
-		 TooltipEventHandler.getInstance().addGregTooltips(event);
+		 TooltipEventHandler.getInstance().addTooltips(event);	
 	}
 	
 }

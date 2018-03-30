@@ -24,8 +24,7 @@ public class TooltipEventHandler {
 	  public void addTooltips(ItemTooltipEvent e){
 		  addPartTooltips(e);
 		  addPotionTooltips(e);
-		  addGregTooltips(e);
-		  
+		  addGregTooltips(e);		  
 	  }
 	
 	public void addPartTooltips(ItemTooltipEvent e) {
@@ -49,24 +48,37 @@ public class TooltipEventHandler {
 		if(e.itemStack.getItem()==null)return;
 			  if(e.itemStack.getItem() instanceof ToolCore){
 				  ToolCore core = (ToolCore)e.itemStack.getItem();
+				  if(e.itemStack.hasTagCompound()){
 				  NBTTagCompound tags = e.itemStack.getTagCompound();
-				  
-				  
+				  				  
 				  PotionEffect head = new PotionEffect(0,1) ;
 				  PotionEffect handle = new PotionEffect(0,1); 
 				  PotionEffect binding = new PotionEffect(0,1);
 				  PotionEffect extra = new PotionEffect(0,1);
+				  int p1;
+				  int p2;
+				  int p3;
+				  int p4;
 				  
 				  try{
-				  if(!(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Head"))==0))
-				  head = new PotionEffect(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Head")), 1, Config.amp.get(tags.getCompoundTag("InfiTool").getInteger("Head")));
-				  if(!(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Handle"))==0))
-				  handle = new PotionEffect(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Handle")), 1, Config.amp.get(tags.getCompoundTag("InfiTool").getInteger("Handle"))); 
-				  if(core.getPartAmount()>=3 && !(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Accessory"))==0))
-				  binding = new PotionEffect(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Accessory")), 1, Config.amp.get(tags.getCompoundTag("InfiTool").getInteger("Accessory"))) ;
-				  if(core.getPartAmount()==4 && !(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Extra"))==0))
-				  extra = new PotionEffect(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Extra")), 1, Config.amp.get(tags.getCompoundTag("InfiTool").getInteger("Extra"))) ;
+				    p1 = tags.getCompoundTag("InfiTool").getInteger("Head");
+				    if(!(Config.eff.get(p1)==0))
+				     head = new PotionEffect(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Head")), 1, Config.amp.get(tags.getCompoundTag("InfiTool").getInteger("Head")));
 				  
+				    p2 = tags.getCompoundTag("InfiTool").getInteger("Handle");
+				    if(!(Config.eff.get(p2)==0))   	  
+				     handle = new PotionEffect(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Handle")), 1, Config.amp.get(tags.getCompoundTag("InfiTool").getInteger("Handle"))); 
+				 
+				   if(core.getPartAmount()>=3){ 
+				    p3 = tags.getCompoundTag("InfiTool").getInteger("Accessory");
+				    if(!(Config.eff.get(p3)==0))
+				     binding = new PotionEffect(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Accessory")), 1, Config.amp.get(tags.getCompoundTag("InfiTool").getInteger("Accessory"))) ;
+				   }
+				   if(core.getPartAmount()==4){
+					   p4=tags.getCompoundTag("InfiTool").getInteger("Extra");
+				  if(!(Config.eff.get(p4)==0))
+				  extra = new PotionEffect(Config.eff.get(tags.getCompoundTag("InfiTool").getInteger("Extra")), 1, Config.amp.get(tags.getCompoundTag("InfiTool").getInteger("Extra"))) ;
+				   }
 				  //Head   
 				  if (!(head.getPotionID()==0)){
 				      if(head.getPotionID()<0){
@@ -124,8 +136,11 @@ public class TooltipEventHandler {
 					     }
 
 			 } 
-				  catch(Exception ex){}
+				  catch(Exception ex){
+					  ex.printStackTrace();
+				  }
 			  }
+				  }
 			  }
 				 
 		

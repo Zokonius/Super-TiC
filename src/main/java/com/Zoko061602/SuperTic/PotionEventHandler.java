@@ -67,31 +67,31 @@ public class PotionEventHandler {
 	          extra = tags.getCompoundTag("InfiTool").getInteger("Extra");
 	        }
 	      
-	        if (Config.eff.containsKey(head)){
-	         if(Config.eff.get(head)>0)
+	        if (Config.id_eff.containsKey(head)){
+	         if(Config.id_eff.get(head)>0)
 	        	addEffect(target, head);
-	         else if(Config.eff.get(head)<0)
+	         else if(Config.id_eff.get(head)<0)
 		        	addEffect(player, head);
 	        	
 	        }
-	        if (Config.eff.containsKey(handle)){
-		         if(Config.eff.get(handle)>0)
+	        if (Config.id_eff.containsKey(handle)){
+		         if(Config.id_eff.get(handle)>0)
 			        	addEffect(target, handle);
-		         else if(Config.eff.get(handle)<0)
+		         else if(Config.id_eff.get(handle)<0)
 			        	addEffect(player, handle);
 		        	
 		        }
-	        if (Config.eff.containsKey(accessory)){
-		         if(Config.eff.get(accessory)>0)
+	        if (Config.id_eff.containsKey(accessory)){
+		         if(Config.id_eff.get(accessory)>0)
 			        	addEffect(target, accessory);
-		         else if(Config.eff.get(accessory)<0)
+		         else if(Config.id_eff.get(accessory)<0)
 		        	 addEffect(player, accessory);
 		        	
 		        }
-	        if (Config.eff.containsKey(extra)){
-		         if(Config.eff.get(extra)>0)
+	        if (Config.id_eff.containsKey(extra)){
+		         if(Config.id_eff.get(extra)>0)
 		        	 addEffect(target, extra);
-		         else if(Config.eff.get(extra)<0)
+		         else if(Config.id_eff.get(extra)<0)
 		        	 addEffect(player, extra);
 		        	
 		        }
@@ -101,9 +101,9 @@ public class PotionEventHandler {
 	  }
 	  
 	  private void addEffect(EntityLivingBase e,int id){
-		  int r= new Random().nextInt(Config.prob.get(id));
-		   if(r==1)
-	        	 e.addPotionEffect(new PotionEffect(Config.eff.get(id)*(-1),Config.dur.get(id),Config.amp.get(id)));
+		  int r= new Random().nextInt(Config.id_prob.get(id));
+		   if(r==0)
+	        	 e.addPotionEffect(new PotionEffect(Config.id_eff.get(id)*(-1),Config.id_dur.get(id),Config.id_amp.get(id)));
 	  }
 	  
 }

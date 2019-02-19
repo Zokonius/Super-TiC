@@ -1,59 +1,54 @@
 package com.Zoko061602.SuperTic;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Map;
 
 import net.minecraftforge.common.config.Configuration;
-import tconstruct.library.TConstructRegistry;
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.materials.Material;
 
 public class Config {
-	
-      public static HashMap<Integer, Integer> id_eff = new HashMap<Integer,Integer>();
-      public static HashMap<Integer, Integer> id_dur = new HashMap<Integer,Integer>();
-      public static HashMap<Integer, Integer> id_amp = new HashMap<Integer,Integer>();
-      public static HashMap<Integer, Integer> id_prob = new HashMap<Integer,Integer>();
-      
-      public static boolean TC;
-      public static boolean BM;
-      
-      public static int TC_lvl;
-      public static int BM_LP; 
 
-      
+	  public static Map<String, Material> materials;
+
+      public static HashMap<String, Integer> id_eff = new HashMap<String,Integer>();
+      public static HashMap<String, Integer> id_dur = new HashMap<String,Integer>();
+      public static HashMap<String, Integer> id_amp = new HashMap<String,Integer>();
+      public static HashMap<String, Integer> id_prob = new HashMap<String,Integer>();
+
       private static Configuration mainconf;
       private static Configuration idconf;
-        	  
-   	  public static void idConfig(File f){ 
-   	  idconf = new Configuration(f);
-      idconf.load();
-    	for(int i=0;!(i==3000);i++)
-        if(TConstructRegistry.toolMaterials.get(i)!=null){    		
-         id_eff.put(i, idconf.getInt("Effect", TConstructRegistry.toolMaterials.get(i).materialName, 0, -255, 255,"Effect id (if negative gets applied to player)"));
-         id_dur.put(i, idconf.getInt("Duration", TConstructRegistry.toolMaterials.get(i).materialName, 200, 1, Integer.MAX_VALUE,""));
-         id_amp.put(i, idconf.getInt("Amplifier", TConstructRegistry.toolMaterials.get(i).materialName, 1, 1, Integer.MAX_VALUE,"")-1);
-         id_prob.put(i,idconf.getInt("Probability", TConstructRegistry.toolMaterials.get(i).materialName, 1, 1, Integer.MAX_VALUE,"Chance effect gets applied 1 in X"));
+
+   	  public static void idConfig(File f){
+   	   reflect();
+   	    idconf = new Configuration(f);
+        idconf.load();
+    	 for(Material m:materials.values()) {
+          id_eff.put(m.getIdentifier(), idconf.getInt("Effect", m.getIdentifier(), 0, -255, 255,"Effect id (if negative gets applied to player)"));
+          id_dur.put(m.getIdentifier(), idconf.getInt("Duration", m.getIdentifier(), 200, 1, Integer.MAX_VALUE,""));
+          id_amp.put(m.getIdentifier(), idconf.getInt("Amplifier", m.getIdentifier(), 1, 1, Integer.MAX_VALUE,"")-1);
+          id_prob.put(m.getIdentifier(),idconf.getInt("Probability", m.getIdentifier(), 1, 1, Integer.MAX_VALUE,"Chance effect gets applied 1 in X"));
 	     }
-        else{
-       	   id_eff.put(i,0);
-           id_dur.put(i,0);
-           id_amp.put(i,0);
-           id_prob.put(i,0);
-         }
     	idconf.save();
     	}
-   	  
+
    	  public static void mainConfig(File f){
    		  mainconf = new Configuration(f);
    		  mainconf.load();
-   		  
-   		  TC= mainconf.getBoolean("Thaumcraft", "Compat_Thaumcraft", true, "Enables/Disables Thaumcraft support");
-   		  BM= mainconf.getBoolean("Bloodmagic", "Compat_Bloodmagic", true, "Enables/Disables Bloodmagic support");
-   		  
-   		  TC_lvl = mainconf.getInt("ThaumcraftLevel", "Compat_Thaumcraft",2, 1, 3, "Difficulty for Thaumcraft modifier");
-          BM_LP = mainconf.getInt("RitualLP", "Compat_BloodMagic", 100000, 1, 80000000, "LP amount for the Spell of the diligent Tinkerer"); 		  
-   		  if(TC_lvl>3)TC_lvl=3;
-   		  if(TC_lvl<1)TC_lvl=1;
    		  mainconf.save();
    	  }
+
+   	  private static void reflect(){
+   		  try {
+   			  Field f = TinkerRegistry.class.getDeclaredField("materials");
+   			  f.setAccessible(true);
+   			  materials = (Map<String, Material>) f.get(Map.class);
+   		  }
+   		  catch(Exception ex){
+   			  ex.printStackTrace();
+   		  }
+   	  }
 }
-	
+

@@ -1,0 +1,12 @@
+saves/*
+logs/*
+crash-reports/*
+config/*
+build/*
+.gradle/*
+.settings/*
+bin/*
+*.json
+options.txt
+.classpath
+.project

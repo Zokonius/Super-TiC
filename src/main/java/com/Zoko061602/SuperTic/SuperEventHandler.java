@@ -1,19 +1,21 @@
 package com.Zoko061602.SuperTic;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.events.MaterialEvent.MaterialRegisterEvent;
+import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
+import slimeknights.tconstruct.library.traits.ITrait;
 
+@EventBusSubscriber
 public class SuperEventHandler {
-	
-	@SubscribeEvent
-	public void PlayerAttack(AttackEntityEvent event){
-		 PotionEventHandler.getInstance().applyEffects(event);	
-	}
 
 	@SubscribeEvent
-	public void Tooltip(ItemTooltipEvent event){
-		 TooltipEventHandler.getInstance().addTooltips(event);	
+	public static void registerMaterial(MaterialRegisterEvent event){
+      event.material.addTrait(new TraitTic(event.material));
+
+
 	}
-	
+
 }

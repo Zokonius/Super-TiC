@@ -26,7 +26,8 @@ public class SuperTic {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) throws IOException {
-    	xmlConfigFile= new File(e.getModConfigurationDirectory(),"/SuperTiC/effects.xml");
+    	new File(e.getModConfigurationDirectory(),"/SuperTic").mkdir();
+    	xmlConfigFile= new File(e.getModConfigurationDirectory(),"/SuperTic/effects.xml");
     	if(xmlConfigFile.createNewFile()){
          BufferedWriter writer = new BufferedWriter(new FileWriter(xmlConfigFile, true));
          writer.write("<effects>\r\n"+"\r \n"+"</effects> ");

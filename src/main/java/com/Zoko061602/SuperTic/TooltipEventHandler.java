@@ -146,11 +146,13 @@ public class TooltipEventHandler {
 				 
 		
 	public void addGregTooltips(ItemTooltipEvent e){
+		if(e.itemStack==null)return; 
+		if(e.itemStack.getItem()==null)return;
 		 Item item = e.itemStack.getItem(); 
 		 ToolMaterial mat = null;;
 		 if(item instanceof IToolPart){
 			   if(GameRegistry.findUniqueIdentifierFor(item).modId=="TGregworks"){
-				    mat = TConstructRegistry.toolMaterials.get(((IToolPart) item).getMaterialID(e.itemStack));
+				    mat = TConstructRegistry.toolMaterials.get(((IToolPart) item).getMaterialID(e.itemStack)); 
 			   if(mat.stonebound>0)e.toolTip.add("Stonebound: x"+mat.stonebound);
 			   if(mat.stonebound<0)e.toolTip.add("Jagged: x"+mat.stonebound*-1);
 			   if(mat.reinforced!=0) 

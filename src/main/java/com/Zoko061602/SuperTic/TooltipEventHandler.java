@@ -1,6 +1,8 @@
 package com.Zoko061602.SuperTic;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
@@ -12,10 +14,10 @@ import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.util.IToolPart;
 
+@SideOnly(Side.CLIENT) //this class doesnt need to run on the Server, or be referenced by it
 class TooltipEventHandler {
 
     private static TooltipEventHandler INSTANCE = new TooltipEventHandler();
-
 
     static TooltipEventHandler getInstance() {
         return INSTANCE;
@@ -71,18 +73,16 @@ class TooltipEventHandler {
     }
 
     private void addPartTooltips(ItemTooltipEvent e) {
-        Item item = e.itemStack.getItem();
-        int id = 0;
-        if (item instanceof IToolPart) {
-            id = Config.id_eff.get(((IToolPart) item).getMaterialID(e.itemStack));
+        if (e.itemStack.getItem() instanceof IToolPart) {
+            IToolPart item = (IToolPart) e.itemStack.getItem();
+            int id = Config.id_eff.get(item.getMaterialID(e.itemStack));
             if (id > 0)
                 e.toolTip.add(EnumChatFormatting.DARK_AQUA + StatCollector.translateToLocal(new PotionEffect(id, 1).getEffectName()) + getLatin(Config.id_amp.get(id)));
+            if (id < 0) {
+                id *= -1;
+                e.toolTip.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal(new PotionEffect(id, 1).getEffectName()) + getLatin(Config.id_amp.get(id)));
+            }
         }
-        if (id < 0) {
-            id *= -1;
-            e.toolTip.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal(new PotionEffect(id, 1).getEffectName()) + getLatin(Config.id_amp.get(id)));
-        }
-
     }
 
     private void addPotionTooltips(ItemTooltipEvent e) {
@@ -193,14 +193,20 @@ class TooltipEventHandler {
 
     private void addGregTooltips(ItemTooltipEvent e) {
         Item item = e.itemStack.getItem();
-        ToolMaterial mat = null;
 		if (item instanceof IToolPart) {
-            if (GameRegistry.findUniqueIdentifierFor(item).modId == "TGregworks") {
-                mat = TConstructRegistry.toolMaterials.get(((IToolPart) item).getMaterialID(e.itemStack));
-                if (mat.stonebound > 0) e.toolTip.add("Stonebound: x" + mat.stonebound);
-                if (mat.stonebound < 0) e.toolTip.add("Jagged: x" + mat.stonebound * -1);
-                if (mat.reinforced != 0)
-                    e.toolTip.add("Reinforced" + getLatin(mat.reinforced));
+           GameRegistry.UniqueIdentifier ui = GameRegistry.findUniqueIdentifierFor(item);
+            if (ui != null && ui.modId.equals("TGregworks")) {
+                ToolMaterial mat = TConstructRegistry.toolMaterials.get(((IToolPart) item).getMaterialID(e.itemStack));
+                if (mat != null) {
+                    if (mat.stonebound > 0)
+                        e.toolTip.add("Stonebound: x" + mat.stonebound);
+                    if (mat.stonebound < 0)
+                        e.toolTip.add("Jagged: x" + mat.stonebound * -1);
+
+//                  This is already added by TGregworks...
+//                    if (mat.reinforced != 0)
+//                        e.toolTip.add("Reinforced" + getLatin(mat.reinforced));
+                }
             }
         }
 

@@ -61,8 +61,8 @@ public class InfusionModifierRecipe extends InfusionRecipe {
 
     @Override
     public Object getRecipeOutput(ItemStack input) {
-        if (input == null) return null;
-        if (input.getItem() == null) return null;
+        if (input == null || input.getItem() == null)
+            return null;
         if (input.getItem() instanceof ToolCore)
             if (input.getTagCompound() != null) {
                 NBTTagCompound nbt = input.getTagCompound();

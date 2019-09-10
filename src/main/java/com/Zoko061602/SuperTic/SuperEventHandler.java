@@ -5,15 +5,17 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 public class SuperEventHandler {
-	
-	@SubscribeEvent
-	public void PlayerAttack(AttackEntityEvent event){
-		 PotionEventHandler.getInstance().applyEffects(event);	
-	}
 
-	@SubscribeEvent
-	public void Tooltip(ItemTooltipEvent event){
-		 TooltipEventHandler.getInstance().addTooltips(event);	
-	}
-	
+    @SubscribeEvent
+    public void PlayerAttack(AttackEntityEvent event) {
+        PotionEventHandler.getInstance().applyEffects(event);
+    }
+
+    @SubscribeEvent
+    public void Tooltip(ItemTooltipEvent event) {
+        if (event == null || event.itemStack == null || event.itemStack.getItem() == null)
+            return;
+        TooltipEventHandler.getInstance().addTooltips(event);
+    }
+
 }
